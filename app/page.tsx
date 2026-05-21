@@ -8,12 +8,10 @@ export default function Home() {
       justifyContent:'center',
       alignItems:'center',
       flexDirection:'column',
-      gap:'20px',
-      background:'#ffffff'
+      gap:'20px'
     }}>
       <h1 style={{
-        fontSize:'70px',
-        fontWeight:'900',
+        fontSize:'90px',
         margin:0
       }}>
         8FIT
@@ -21,22 +19,19 @@ export default function Home() {
 
       <p style={{
         color:'#666',
-        fontSize:'20px'
+        fontSize:'22px'
       }}>
-        Premium Fitness Platform
+        Plataforma Premium Fitness
       </p>
 
-      <Link
-        href="/login"
-        style={{
-          padding:'18px 40px',
-          borderRadius:'20px',
-          background:'#ff7a00',
-          color:'white',
-          textDecoration:'none',
-          fontWeight:'bold'
-        }}
-      >
+      <Link href="/login" style={{
+        background:'#ff7a00',
+        color:'white',
+        padding:'18px 40px',
+        borderRadius:'18px',
+        textDecoration:'none',
+        fontWeight:'bold'
+      }}>
         Entrar
       </Link>
     </main>

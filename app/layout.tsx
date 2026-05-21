@@ -9,8 +9,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body style={{ margin: 0, fontFamily: 'Arial', background: '#fff' }}>
+    <html lang="es">
+      <body style={{
+        margin:0,
+        fontFamily:'Arial',
+        background:'#f4f4f4'
+      }}>
         {children}
       </body>
     </html>

@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const users = [
-  { username:'Tony', password:'iloveyoubaby', role:'trainer' },
+  { username:'Tony', password:'iloveyoubaby', role:'admin' },
   { username:'gustavo', password:'8FitGA', role:'client' },
   { username:'daniel', password:'8FitDD', role:'client' },
   { username:'diego', password:'8FitDO', role:'client' },
@@ -20,23 +21,29 @@ const users = [
 ]
 
 export default function LoginPage() {
+  const router = useRouter()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
   const login = () => {
     const user = users.find(
-      (u) =>
-        u.username === username &&
-        u.password === password
+      (u) => u.username === username && u.password === password
     )
 
     if (!user) {
-      setMessage('Usuario incorrecto')
+      setError('Usuario incorrecto')
       return
     }
 
-    setMessage(`Bienvenido ${user.username}`)
+    localStorage.setItem('user', JSON.stringify(user))
+
+    if (user.role === 'admin') {
+      router.push('/admin')
+    } else {
+      router.push('/dashboard')
+    }
   }
 
   return (
@@ -44,28 +51,25 @@ export default function LoginPage() {
       minHeight:'100vh',
       display:'flex',
       justifyContent:'center',
-      alignItems:'center',
-      background:'#f5f5f5'
+      alignItems:'center'
     }}>
       <div style={{
-        width:'100%',
-        maxWidth:'450px',
         background:'white',
-        padding:'40px',
+        padding:'50px',
         borderRadius:'30px',
-        boxShadow:'0 10px 30px rgba(0,0,0,0.1)'
+        width:'100%',
+        maxWidth:'500px'
       }}>
         <h1 style={{
           textAlign:'center',
-          fontSize:'50px',
-          marginBottom:'10px'
+          fontSize:'70px'
         }}>
           8FIT
         </h1>
 
         <p style={{
           textAlign:'center',
-          color:'#777',
+          color:'#666',
           marginBottom:'40px'
         }}>
           Login Premium
@@ -74,16 +78,16 @@ export default function LoginPage() {
         <div style={{
           display:'flex',
           flexDirection:'column',
-          gap:'15px'
+          gap:'18px'
         }}>
           <input
             placeholder="Usuario"
             value={username}
             onChange={(e)=>setUsername(e.target.value)}
             style={{
-              padding:'16px',
-              borderRadius:'15px',
-              border:'1px solid #ddd'
+              padding:'18px',
+              borderRadius:'16px',
+              border:'1px solid #ccc'
             }}
           />
 
@@ -93,9 +97,9 @@ export default function LoginPage() {
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             style={{
-              padding:'16px',
-              borderRadius:'15px',
-              border:'1px solid #ddd'
+              padding:'18px',
+              borderRadius:'16px',
+              border:'1px solid #ccc'
             }}
           />
 
@@ -103,10 +107,10 @@ export default function LoginPage() {
             onClick={login}
             style={{
               padding:'18px',
-              borderRadius:'15px',
+              borderRadius:'18px',
+              border:'none',
               background:'#ff7a00',
               color:'white',
-              border:'none',
               fontWeight:'bold',
               cursor:'pointer'
             }}
@@ -116,10 +120,9 @@ export default function LoginPage() {
 
           <p style={{
             textAlign:'center',
-            color:'#ff7a00',
-            fontWeight:'bold'
+            color:'red'
           }}>
-            {message}
+            {error}
           </p>
         </div>
       </div>
